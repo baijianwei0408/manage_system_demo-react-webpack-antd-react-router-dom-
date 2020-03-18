@@ -8,15 +8,16 @@ function resolve(dir) {
 module.exports = {
     // 指定构建环境
     mode: "development",
+    devtool: 'inline-source-map',
     // 入口
     entry: {
         app: "./index.js"
     },
     // 出口
     output: {
-        path: resolve("../../../dist"),
+        path: resolve("../../dist"),
         filename: "[name].[hash].js",
-        publicPath: "/" // 打包后的资源的访问路径前缀
+        publicPath: "./" // 打包后的资源的访问路径前缀
     },
     // 模块
     module: {
@@ -72,7 +73,7 @@ module.exports = {
     // 插件
     plugins: [
         new HtmlWebpackPlugin({
-            filename: resolve('../../../dist/index.html'), // html模板的生成路径
+            filename: resolve('../../dist/index.html'), // html模板的生成路径
             template: 'index.html',//html模板
             inject: true, // true：默认值，script标签位于html文件的 body 底部
         })
@@ -92,7 +93,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.json'], // 解析扩展。（当我们通过路导入文件，找不到改文件时，会尝试加入这些后缀继续寻找文件）
         alias: {
-            '@': path.join(__dirname, '../../..', "src") // 在项目中使用@符号代替src路径，导入文件路径更方便
+            '@': path.join(__dirname, '../..', "src") // 在项目中使用@符号代替src路径，导入文件路径更方便
         }
     }
 };

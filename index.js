@@ -13,6 +13,9 @@ class App extends React.Component {
     render() {
         return (
             <Provider {...stores}>
+                /**
+                * 如果想在本地运行并不使用服务器就用 HashRouter ，这样直接打包好后就能通过index.html进入项目
+                */
                 <BrowserRouter>
                     <Switch>
                         {
