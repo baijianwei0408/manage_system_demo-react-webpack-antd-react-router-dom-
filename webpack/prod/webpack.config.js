@@ -16,7 +16,7 @@ module.exports = {
     // 入口
     entry: {
         app: "./index.js",
-        vendor: ["react", "react-dom", "react-router-dom", "antd", "mobx", "mobx-react"]
+        // vendor: ["react", "react-dom", "react-router-dom", "antd", "mobx", "mobx-react"]
     },
     // 出口
     output: {
@@ -114,10 +114,24 @@ module.exports = {
         splitChunks: {
             minSize: 0,
             cacheGroups: {
-                commons: {
-                    name: 'vendor',
-                    chunks: 'initial',
+                common: {
+                    name: 'common',
+                    chunks: 'all',
+                    minSize: 1,
                     minChunks: 1,
+                    priority: 1//设置匹配优先级，数字越小，优先级越低
+                },
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'all',
+                    test: /[\\/]node_modules[\\/]/,//匹配node模块中匹配的的模块
+                    priority: 10,//设置匹配优先级，数字越大，优先级越高
+                },
+                styles: {
+                    name: 'style', // 样式文件全部合并打包
+                    chunks: 'all',
+                    test: /\.(css|less)$/,
+                    enforce: true
                 }
             }
         },
