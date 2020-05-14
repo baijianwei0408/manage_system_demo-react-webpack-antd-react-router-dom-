@@ -11,7 +11,8 @@ const { SubMenu } = Menu;
  * @returns {*}
  */
 function getRootRouters(routersConfig = []) {
-    return routersConfig.map(config => <Route exact={!config.routes} path={config.path} component={config.component}/>)
+    return routersConfig.map(config => <Route key={config.path} exact={!config.routes} path={config.path}
+                                              component={config.component}/>)
 }
 
 /**
@@ -23,7 +24,8 @@ function getRoutersByRootRouters(routersCpn, rootRoutersConfig, path = "") {
         let fatherPath = path + rootRoutersConfig.path;
         rootRoutersConfig.routes.forEach(config => {
             if (config.component)
-                routersCpn.push(<Route exact path={fatherPath + config.path} component={config.component}/>);
+                routersCpn.push(<Route key={fatherPath + config.path}
+                                       exact path={fatherPath + config.path} component={config.component}/>);
 
             if (config.routes) {
                 getRoutersByRootRouters(routersCpn, config, fatherPath);
@@ -46,7 +48,7 @@ function getSideBarByRootRouters(rootRoutersConfig, props) {
         let path = rootRoutersConfig.path + route.path;
         if (!route.routes || route.routes.length == 0)
             return <Menu.Item key={route.key} onClick={() => clickSideBarHandler(path)}>
-                <Icon type={route.icon}/>
+                <Icon type={route.icon || 'question'}/>
                 <span>{route.title}</span>
             </Menu.Item>
 
@@ -78,9 +80,9 @@ function getBreadCrumb(rootRoutersConfig, props) {
         let c = rootRoutersConfig.find(config => config.path === "/" + paths[index]);
         if (c && c.isRoot !== true && c.component) {
             if (paths.length === index + 1)
-                breadCrumb.push(<Breadcrumb.Item>{c.title}</Breadcrumb.Item>);
+                breadCrumb.push(<Breadcrumb.Item key={index}>{c.title}</Breadcrumb.Item>);
             else
-                breadCrumb.push(<Breadcrumb.Item onClick={() => props.history.replace(fatherPath + c.path)}>
+                breadCrumb.push(<Breadcrumb.Item key={index} onClick={() => props.history.replace(fatherPath + c.path)}>
                     <a>{c.title}</a>
                 </Breadcrumb.Item>);
         }

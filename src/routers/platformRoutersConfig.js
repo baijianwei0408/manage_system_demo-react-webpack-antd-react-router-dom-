@@ -31,6 +31,14 @@ const platformRoutersConfig = [
                                 title: '用户详情',
                                 component: User,
                                 key: '1-1-1-1',
+                                routes: [
+                                    {
+                                        path: "/otherUser",
+                                        title: '其他用户',
+                                        component: User,
+                                        key: '1-1-1-1-1',
+                                    }
+                                ]
                             }
                         ]
                     }

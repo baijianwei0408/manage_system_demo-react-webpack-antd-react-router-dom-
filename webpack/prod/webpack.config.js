@@ -6,10 +6,6 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 
-function resolve(dir) {
-    return path.resolve(__dirname, dir)
-}
-
 module.exports = {
     // 指定构建环境
     mode: "production",
@@ -20,9 +16,9 @@ module.exports = {
     },
     // 出口
     output: {
-        path: resolve("../../dist"),
+        path: path.resolve(__dirname, "../../dist"),
         filename: "[name].[hash].js",
-        publicPath: "./" // 打包后的资源的访问路径前缀
+        publicPath: "/" // 打包后的资源的访问路径前缀,如果想在本地运行就改成 "./"
     },
     // 模块
     module: {
@@ -60,7 +56,7 @@ module.exports = {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000, // 小于10000B的图片base64的方式引入，大于10000B的图片以路径的方式导入
+                    limit: 10000, // 小于10000B的字体base64的方式引入，大于10000B的字体以路径的方式导入
                     name: 'static/fonts/[name].[hash:7].[ext]'
                 }
             }
@@ -70,7 +66,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            filename: resolve('../../dist/index.html'), // html模板的生成路径
+            filename: path.resolve(__dirname, "../../dist/index.html"), // html模板的生成路径
             template: 'index.html',//html模板
             inject: true, // true：默认值，script标签位于html文件的 body 底部
         }),

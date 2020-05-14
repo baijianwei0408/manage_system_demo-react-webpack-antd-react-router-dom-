@@ -1,9 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-function resolve(dir) {
-    return path.resolve(__dirname, dir)
-}
 
 module.exports = {
     // 指定构建环境
@@ -15,9 +12,9 @@ module.exports = {
     },
     // 出口
     output: {
-        path: resolve("../../dist"),
+        path: path.resolve(__dirname, "../../dist"),
         filename: "[name].[hash].js",
-        publicPath: "./" // 打包后的资源的访问路径前缀
+        publicPath: "/" // 打包后的资源的访问路径前缀
     },
     // 模块
     module: {
@@ -73,7 +70,7 @@ module.exports = {
     // 插件
     plugins: [
         new HtmlWebpackPlugin({
-            filename: resolve('../../dist/index.html'), // html模板的生成路径
+            filename: path.resolve(__dirname, '../../dist/index.html'), // html模板的生成路径
             template: 'index.html',//html模板
             inject: true, // true：默认值，script标签位于html文件的 body 底部
         })
