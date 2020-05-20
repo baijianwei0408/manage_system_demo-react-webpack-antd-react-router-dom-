@@ -16,7 +16,7 @@ module.exports = {
     },
     // 出口
     output: {
-        path: path.resolve(__dirname, "../../dist"),
+        path: path.resolve(__dirname, "../../../dist"),
         filename: "[name].[hash].js",
         publicPath: "/" // 打包后的资源的访问路径前缀,如果想在本地运行就改成 "./"
     },
@@ -66,7 +66,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, "../../dist/index.html"), // html模板的生成路径
+            filename: path.resolve(__dirname, "../../../dist/index.html"), // html模板的生成路径
             template: 'index.html',//html模板
             inject: true, // true：默认值，script标签位于html文件的 body 底部
         }),
@@ -79,7 +79,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.json'], // 解析扩展。（当我们通过路导入文件，找不到改文件时，会尝试加入这些后缀继续寻找文件）
         alias: {
-            '@': path.join(__dirname, '../..', "src") // 在项目中使用@符号代替src路径，导入文件路径更方便
+            '@': path.join(__dirname, '../../..', "src") // 在项目中使用@符号代替src路径，导入文件路径更方便
         }
     },
     optimization: {
